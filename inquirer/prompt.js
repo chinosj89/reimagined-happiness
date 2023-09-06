@@ -15,6 +15,7 @@ const questions = [
             'Add Department',
         ],
     },
+    // ADD EMPLOYEE
     {
         type: 'input',
         name: 'employeeFirst',
@@ -40,7 +41,7 @@ const questions = [
             'Accountant',
             'Legal team Lead',
             'Lawyer'
-            ],
+        ],
         when: (answers) => answers.action === 'Add Employee'
     },
     {
@@ -54,8 +55,9 @@ const questions = [
             'Kevin Tupik',
             'Malia Brown',
             'Mike Chan',
-            ],
-            default: '',
+            None
+        ],
+        default: '',
         when: (answers) => answers.action === 'Add Employee'
     },
     {
@@ -67,7 +69,7 @@ const questions = [
             'Engineering',
             'Finance',
             'Legal',
-            ],
+        ],
         when: (answers) => answers.action === 'Add Employee'
     },
     {
@@ -76,19 +78,51 @@ const questions = [
         message: 'Salary of this employee?',
         when: (answers) => answers.action === 'Add Employee'
     },
-
+    // UPDATE EMPLOYEE ROLE
     {
         type: 'input',
-        name: 'employeeRole',
-        message: 'What new role would you like to add?',
-        when: (answers) => answers.action === 'Update Employee Roles'
+        name: 'updateEmployee',
+        message: 'Which employee would you like to update?',
+        choices: employees.map(employee => `${employee.first_name} ${employee.last_name}`),
+        when: (answers) => answers.action === 'Update Employee Roles',
     },
     {
         type: 'input',
-        name: 'employeeRoles',
-        message: 'What new role would you like to add?',
-        when: (answers) => answers.action === 'Add Role'
+        name: 'updateRole',
+        message: 'What is their new role?',
+        choices: roles.map(role => role.title),
+        when: (answers) => answers.action === 'Update Employee Roles',
+      },
+    // ADD NEW TYPE OF ROLE
+    {
+        type:'input',
+        name:'newRole',
+        message:'What is the new role you want to add?',
+        defualt: '',
+        when: (answers) => answers.action === 'Add Role',
     },
-    
+    {
+        type: 'input',
+        name: 'newSalary',
+        message: 'What is the salary for the new role?',
+        default: '',
+        when: (answers) => answers.action === 'Add Role',
+      },
+      
+      {
+        type: 'input',
+        name: 'newDepartment',
+        message: 'What department does the new role belong to?',
+        default: '',
+        when: (answers) => answers.action === 'Add Role',
+      },
+    // ADD NEW TYPE OF DEPARTMENT
+    {
+        type:'input',
+        name:'newDepartment',
+        message:'What is the new department you want to add?',
+        when: (answers) => answers.action === 'Add Department',
+    },
 ];
 
+    
