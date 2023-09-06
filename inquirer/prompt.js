@@ -17,20 +17,75 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'employeeName',
-        message: 'Name of Employee?',
+        name: 'employeeFirst',
+        message: 'First Name of Employee?',
         when: (answers) => answers.action === 'Add Employee'
     },
     {
         type: 'input',
+        name: 'employeeLast',
+        message: 'First Name of Employee?',
+        when: (answers) => answers.action === 'Add Employee'
+    },
+    {
+        type: 'select',
         name: 'employeeRole',
-        message: 'What would you like to add to their current roles?',
-        when: (answers) => answers.action === 'Update Employee Role'
+        message: 'Role/Title of Employee?',
+        choices: [
+            'Sales Lead',
+            'Salesperson',
+            'Lead Engineer',
+            'Software Engineer',
+            'Account Manager',
+            'Accountant',
+            'Legal team Lead',
+            'Lawyer'
+            ],
+        when: (answers) => answers.action === 'Add Employee'
+    },
+    {
+        type: 'select',
+        name: 'employeeManager',
+        message: 'Manager of Employee?',
+        choices: [
+            'John Doe',
+            'Ashley Rodriguez',
+            'Kunal Singh',
+            'Kevin Tupik',
+            'Malia Brown',
+            'Mike Chan',
+            ],
+        when: (answers) => answers.action === 'Add Employee'
+    },
+    {
+        type: 'select',
+        name: 'employeeDepartment',
+        message: 'Department of Employee?',
+        choices: [
+            'Sales',
+            'Engineering',
+            'Finance',
+            'Legal',
+            ],
+        when: (answers) => answers.action === 'Add Employee'
+    },
+    {
+        type: 'input',
+        name: 'employeeSalary',
+        message: 'Salary of this employee?',
+        when: (answers) => answers.action === 'Add Employee'
+    },
+
+    {
+        type: 'input',
+        name: 'employeeRole',
+        message: 'What new role would you like to add?',
+        when: (answers) => answers.action === 'Update Employee Roles'
     },
     {
         type: 'input',
         name: 'employeeRoles',
-        message: 'What is the new role of the employee?',
+        message: 'What new role would you like to add?',
         when: (answers) => answers.action === 'Add Role'
     },
     
