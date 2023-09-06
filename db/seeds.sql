@@ -1,9 +1,9 @@
 -- Insert departments into the database
-INSERT INTO department (name) VALUES
-('Sales'),
-('Engineering'),
-('Finance'),
-('Legal')
+INSERT INTO department (name, manager_id) VALUES
+('Sales', 1),
+('Engineering', 2),
+('Finance', 3),
+('Legal', 4)
 
 -- Insert roles given into the database
 INSERT INTO role (title,department,salary) VALUES
@@ -17,7 +17,7 @@ INSERT INTO role (title,department,salary) VALUES
 ('Lawyer', 'Legal', 190000);
 
 -- Insert employees into the database
-INSERT INTO employee (first_name, last_name,) VALUES
+INSERT INTO employee (first_name, last_name) VALUES
 ('John', 'Doe'),
 ('Mike', 'Chan'),
 ('Ahsley', 'Rodriguez'),
@@ -26,5 +26,7 @@ INSERT INTO employee (first_name, last_name,) VALUES
 ('Malia', 'Brown'),
 ('Sarah', 'Lourd'),
 ('Tom', 'Allen');
+
+INSERT INTO employee (manager_id)
 
 
