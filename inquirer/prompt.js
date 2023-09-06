@@ -55,6 +55,7 @@ const questions = [
             'Malia Brown',
             'Mike Chan',
             ],
+            default: '',
         when: (answers) => answers.action === 'Add Employee'
     },
     {

@@ -23,38 +23,43 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the employees database.`)
 );
-
+// View employee table
 if (choices.action === 'View All Employees') {
     db.query(`SELECT * FROM employee`, function (err, results) {
         console.log(results);
     });
 };
 
+// View role table
 if (choices.action === 'View All Roles') {
     db.query(`SELECT * FROM role`, function (err, results) {
         console.log(results);
     });
 };
 
+// View department table
 if (choices.action === 'View All Departments') {
     db.query(`SELECT * FROM department`, function (err, results) {
         console.log(results);
     });
 };
 
+// Adding new employees to the table
 if (choices.action === 'Add Employee') {
-    db.query('INSERT INTO employee (first_name, last_name, title, salary, manager) VALUES (?, ?, ?, ?, ?)', [
+    db.query('INSERT INTO employee (first_name, last_name, title, department,salary) VALUES (?, ?, ?, ?, ?)', [
         choices.employeeFirstName,
         choices.employeeLastName,
         choices.employeeRole,
+        choices.employeeDepartment,
         choices.employeeSalary,
         choices.employeeManager,
-        choices.employeeDepartment
+        
     ], function (err, results) {
         if (err) {
             console.log(err);
         } else {
             console.log('Employee added successfully.');
+            console.log(results)
         }
     });
 }
