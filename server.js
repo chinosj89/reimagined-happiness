@@ -26,16 +26,33 @@ const db = mysql.createConnection(
 // VIEW DIFFERENT TABLES
 // View employee table
 if (choices.action === 'View All Employees') {
-    db.query(`SELECT * FROM employee`, function (err, results) {
-        console.log(results);
-    });
+    db.query(`SELECT 
+    employee.id AS 'Employee ID',
+    employee.first_name AS 'First Name',
+    employee.last_name AS 'Last Name',
+    role.title AS 'Job Title',
+    department.name AS 'Department',
+    role.salary AS 'Salary',
+    CONCAT(manager.first_name, ' ', manager.last_name) AS 'Manager'
+FROM 
+    employee
+LEFT JOIN role ON employee.role_id = role.id
+LEFT JOIN department ON role.department_id = department.id 
+LEFT JOIN employee AS manager ON employee.manager_id = manager.id`,
+        function (err, results) {
+            console.log(results);
+        });
 };
 
 // View role table
 if (choices.action === 'View All Roles') {
-    db.query(`SELECT * FROM role`, function (err, results) {
-        console.log(results);
-    });
+    db.query(`SELECT id AS 'Role ID', 
+    title AS ' Job Title', 
+    salary AS 'Salary', 
+    department_id AS 'Department ID' FROM role`,
+        function (err, results) {
+            console.log(results);
+        });
 };
 
 // View department table
