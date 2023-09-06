@@ -27,8 +27,8 @@ const db = mysql.createConnection(
 // View employee table
 if (choices.action === 'View All Employees') {
     db.query(`SELECT 
-    employee.id AS 'Employee ID',
-    employee.first_name AS 'First Name',
+    employee.id AS 'Employee ID', 
+    employee.first_name AS 'First Name', 
     employee.last_name AS 'Last Name',
     role.title AS 'Job Title',
     department.name AS 'Department',
@@ -38,7 +38,7 @@ FROM
     employee
 LEFT JOIN role ON employee.role_id = role.id
 LEFT JOIN department ON role.department_id = department.id 
-LEFT JOIN employee AS manager ON employee.manager_id = manager.id`,
+LEFT JOIN employee AS manager ON manager.id = employee.manager_id`,
         function (err, results) {
             console.log(results);
         });
@@ -64,25 +64,36 @@ if (choices.action === 'View All Departments') {
 
 // ADD EMPLOYEE
 // Adding new employees to the table with different fields
-// Prompt requires: First name, last name, role, manager
 if (choices.action === 'Add Employee') {
-    db.query('INSERT INTO employee (first_name, last_name, title, department,salary) VALUES (?, ?, ?, ?, ?)', [
+    db.query('INSERT INTO employee (first_name, last_name) VALUES (?, ?)', [
         choices.employeeFirstName,
         choices.employeeLastName,
-        choices.employeeRole,
-        choices.employeeDepartment,
-        choices.employeeSalary,
-        choices.employeeManager,
-
-    ], function (err, results) {
+    ], function (err, employeeResult) {
         if (err) {
             console.log(err);
         } else {
             console.log('Employee added successfully.');
-            console.log(results)
+            console.log(employeeResult);
         }
     });
-};
+}
+
+if (choices.action === 'Add Role') {
+    db.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [
+        choices.employeeRole,
+        choices.employeeSalary,
+        choices.employeeDepartment,
+    ], function (err, roleResult) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Role added successfully.');
+            console.log(roleResult);
+        }
+    });
+}
+
+
 
 // UPDATE ROLE
 // Update employee role
