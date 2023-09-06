@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-
+const { employees, roles } = require('./server');
 const questions = [
     {
         type: 'select',
@@ -55,7 +55,6 @@ const questions = [
             'Kevin Tupik',
             'Malia Brown',
             'Mike Chan',
-            None
         ],
         default: '',
         when: (answers) => answers.action === 'Add Employee'
@@ -80,14 +79,14 @@ const questions = [
     },
     // UPDATE EMPLOYEE ROLE
     {
-        type: 'input',
+        type: 'list',
         name: 'updateEmployee',
         message: 'Which employee would you like to update?',
         choices: employees.map(employee => `${employee.first_name} ${employee.last_name}`),
         when: (answers) => answers.action === 'Update Employee Roles',
     },
     {
-        type: 'input',
+        type: 'list',
         name: 'updateRole',
         message: 'What is their new role?',
         choices: roles.map(role => role.title),
@@ -124,5 +123,4 @@ const questions = [
         when: (answers) => answers.action === 'Add Department',
     },
 ];
-
-    
+module.exports = questions;

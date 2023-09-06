@@ -1,17 +1,11 @@
-const express = require('express');
+// to hide password - learned in module 13
+require('dotenv').config();
 // Import and require mysql2
 const mysql = require('mysql2');
 // Import and require inquirer 
-const choices = inquirer.prompt(questions);
-// to hide password - learned in module 13
-require('dotenv').config();
+const inquirer = require('inquirer');
+const choices = require('./prompt');
 
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 // mySQL connection
 const db = mysql.createConnection(
@@ -100,34 +94,54 @@ if (choices.action === 'Add Role') {
 
 
 // UPDATE ROLE
-// Update employee role
-// Find employee names in the database to map into inquirer instead of having a set of values since we have a prompt that needs to be update if new role is added
-const employees = [];
-const employeeData = db.query('SELECT * FROM employee');
-employeeData.forEach(employee => {
-    employees.push({
-        first_name: employee.first_name,
-        last_name: employee.last_name,
-        role_id: employee.role_id,
-    });
-});
-// Find employee roles in the database to map into inquirer instead of having a set of values since we have a prompt that needs to be update if new role is added
-const roles = [];
-const roleData = db.query('SELECT * FROM role');
-
-roleData.forEach(role => {
-    roles.push({
-        id: role.id,
-        title: role.title,
-    });
-});
-
-// UPDATE the role of an employee
 if (choices.action === 'Update Employee Roles') {
-    const sql = `UPDATE role SET title = ? WHERE id = ?`;
-    db.query(sql, [choices.updateEmployee, choices.updateRole])
-    console.log('Success, updated!')
-};
+    const employees = [];
+    const roles = [];
+    db.query('SELECT * FROM employee', (err, employeeResults) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        employeeResults.forEach(employee => {
+            employees.push({
+                first_name: employee.first_name,
+                last_name: employee.last_name,
+                role_id: employee.role_id,
+            });
+        });
+
+        db.query('SELECT * FROM role', (err, roleResults) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            // Process the role query results
+            roleResults.forEach(role => {
+                roles.push({
+                    id: role.id,
+                    title: role.title,
+                });
+            });
+
+            // At this point, both 'employees' and 'roles' arrays are populated
+            // You can use them here or in any other part of your code
+            console.log(employees);
+            console.log(roles);
+
+            // Now, you can execute the SQL statement to update an employee's role
+            const sql = 'UPDATE role SET title = ? WHERE id = ?';
+            const values = [choices.updateRole, choices.updateEmployee];
+            db.query(sql, values, (err, updateResult) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log('Employee role updated successfully.');
+            });
+        });
+    });
+}
+
 // this query will UPDATE the role table, update the title column, and using the updateEmployee to find the equal id to it. 
 
 // ADD NEW DATA
@@ -160,3 +174,5 @@ if (choices.action === 'Add Department') {
         }
     });
 }
+
+module.exports = { employees, roles };
