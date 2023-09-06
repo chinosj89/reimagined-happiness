@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const { employees, roles } = require('./server');
+// const { employees, roles } = require('./server');
 const questions = [
     {
         type: 'select',
@@ -78,20 +78,20 @@ const questions = [
         when: (answers) => answers.action === 'Add Employee'
     },
     // UPDATE EMPLOYEE ROLE
-    {
-        type: 'list',
-        name: 'updateEmployee',
-        message: 'Which employee would you like to update?',
-        choices: employees.map(employee => `${employee.first_name} ${employee.last_name}`),
-        when: (answers) => answers.action === 'Update Employee Roles',
-    },
-    {
-        type: 'list',
-        name: 'updateRole',
-        message: 'What is their new role?',
-        choices: roles.map(role => role.title),
-        when: (answers) => answers.action === 'Update Employee Roles',
-      },
+    // {
+    //     type: 'list',
+    //     name: 'updateEmployee',
+    //     message: 'Which employee would you like to update?',
+    //     choices: employees.map(employee => `${employee.first_name} ${employee.last_name}`),
+    //     when: (answers) => answers.action === 'Update Employee Roles',
+    // },
+    // {
+    //     type: 'list',
+    //     name: 'updateRole',
+    //     message: 'What is their new role?',
+    //     choices: roles.map(role => role.title),
+    //     when: (answers) => answers.action === 'Update Employee Roles',
+    //   },
     // ADD NEW TYPE OF ROLE
     {
         type:'input',
@@ -123,4 +123,4 @@ const questions = [
         when: (answers) => answers.action === 'Add Department',
     },
 ];
-module.exports = questions;
+module.exports = {questions};
