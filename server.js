@@ -24,3 +24,20 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees database.`)
   );
   
+if (choices.action === 'View All Employees') {
+    db.query('SELECT * FROM employee', function (err, results) {
+        console.log(results);
+      });
+}; 
+
+if (choices.action === 'View All Roles') {
+    db.query('SELECT * FROM role', function (err, results) {
+        console.log(results);
+      });
+}; 
+
+if (choices.action === 'View All Departments') {
+    db.query('SELECT * FROM department', function (err, results) {
+        console.log(results);
+      });
+}; 
