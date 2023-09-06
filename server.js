@@ -24,7 +24,7 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees database.`)
 );
 // VIEW DIFFERENT TABLES
-// View employee table
+// View employee table -- tested with testAllEmployees.sql -- created table
 if (choices.action === 'View All Employees') {
     db.query(`SELECT 
     employee.id AS 'Employee ID', 
@@ -44,7 +44,7 @@ LEFT JOIN employee AS manager ON manager.id = employee.manager_id`,
         });
 };
 
-// View role table
+// View role table -- tested -- created table
 if (choices.action === 'View All Roles') {
     db.query(`SELECT id AS 'Role ID', 
     title AS ' Job Title', 
@@ -55,12 +55,16 @@ if (choices.action === 'View All Roles') {
         });
 };
 
-// View department table
+// View department table -- tested -- created table 
 if (choices.action === 'View All Departments') {
-    db.query(`SELECT * FROM department`, function (err, results) {
-        console.log(results);
-    });
+    db.query(`SELECT 
+    id AS 'Department ID', 
+    name AS 'Department Name' FROM department`,
+        function (err, results) {
+            console.log(results);
+        });
 };
+
 
 // ADD EMPLOYEE
 // Adding new employees to the table with different fields
