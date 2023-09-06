@@ -129,18 +129,30 @@ if (choices.action === 'Update Employee Roles') {
 // ADD NEW DATA
 // ADD NEW TYPE OF ROLE
 // Prompt asks for name of role, salary of the role, and department
+// ADD new role
 if (choices.action === 'Add Role') {
-    db.query(`INSERT INTO role (title, salary, department) VALUES (?, ?, ?)`,
-        [
-            choices.newRole,
-            choices.newSalary,
-            choices.newDepartment
-        ])
-    console.log('Success! New Role added')
+    db.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [
+        choices.newRole,
+        choices.newSalary,
+        choices.newDepartmentId
+    ], function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Success! New Role added');
+        }
+    });
 }
 
-// ADD NEW TYPE OF DEPARTMENT
+// ADD new department
 if (choices.action === 'Add Department') {
-    db.query(`INSERT INTO department (name) VALUES (?)`)
-    console.log('Success! New Department added')
+    db.query('INSERT INTO department (name) VALUES (?)', [
+        choices.newDepartment
+    ], function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Success! New Department added');
+        }
+    });
 }
